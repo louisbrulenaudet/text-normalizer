@@ -4,7 +4,7 @@ authors:
 - family-names: "Brulé Naudet"
   given-names: "Louis"
   orcid: "https://orcid.org/0000-0001-9111-4879"
-title: "open-sri"
+title: "text-normalizer"
 version: 1.0.0
 date-released: 2023-04-01
 url: "https://github.com/louisbrulenaudet/text-normalizer"
