@@ -1,57 +1,34 @@
-var fs = require("fs");
-const path = require("path");
-var crypto = require("crypto");
+async function normalize(text) {
+  /*
+  Transforms the article title string to make it compatible with URL recommendations. 
+  Clean URLs (also known as friendly URLs, pretty URLs, search-engine friendly URLs or 
+  RESTful URLs) are web addresses or uniform resource locators (URLs) designed to 
+  improve the usability and accessibility of a website, web application or web service 
+  by being immediately and intuitively understandable to non-expert users.
 
-function isNotBackgroundFile(file) {
-  if(path.extname(file) === ".css" || path.extname(file) === ".js") {
-    return true;
-  }
-  else {
-    return false;
+  Parameters
+  ----------
+  text : str
+    The string of the title of the article used to construct the URL.
+
+  Returns
+  -------
+  friendlyURL : str
+    The friendly string used as URL for the article.
+  */
+  let friendlyURL = text.replace(
+    /[`~!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/]/gi,
+    ""
+  );
+
+  friendlyURL = friendlyURL.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+  friendlyURL = friendlyURL.replace(/\s+/g, "-").toLowerCase();
+
+  while (friendlyURL.charAt(friendlyURL.length - 1) === "-") {
+    friendlyURL = friendlyURL.replace(/.$/, "");
   };
+
+  return friendlyURL;
 };
 
-function generate384(absoluteFilepath, algorithm) {
-  var buffer = fs.readFileSync(absoluteFilepath);
-  var body = buffer.toString();
-  const enc = "utf8";
-
-  var hash = crypto.createHash(algorithm).update(body, enc);
-  var sha  = hash.digest("base64");
-
-  return algorithm + "-" + sha;
-};
-
-function saveSubresourceIntegrityHash(staticFilepath, algorithm, json) {
-  if (algorithm == "sha256" || algorithm == "sha384" || algorithm == "sha512") {
-    const filesInDirectory = fs.readdirSync(staticFilepath);
-
-    for (const file of filesInDirectory) {
-      const absoluteFilepath = path.join(staticFilepath, file);
-
-      if (fs.statSync(absoluteFilepath).isDirectory()) {
-        saveSubresourceIntegrityHash(absoluteFilepath, algorithm, json);
-      }
-      else if (isNotBackgroundFile(file)) {
-        var newHash =  {
-          "filepath": absoluteFilepath,
-          "hash": generate384(absoluteFilepath, algorithm)
-        };
-
-        json.push(newHash);
-      };
-    };
-  }
-  else {
-    console.log("Incorrect algorithm, please select a value supported by browsers for sub-resource integrity checking ('sha256', 'sha384', 'sha512').");
-  };
-};
-
-function get(staticFilepath, algorithm) {
-  var json = [];
-  saveSubresourceIntegrityHash(staticFilepath, algorithm, json);
-
-  return json;
-};
-
-module.exports = {get};
+module.exports = {normalize};
