@@ -1,36 +1,22 @@
-# open-sri
+# text-normalizer for url creation
 
 <img align="right" src="https://github.com/yarnpkg/assets/blob/master/yarn-kitten-full.svg?raw=true" height="150px" alt="the yarn kitten">
 
-Ultralight, non-dependent and minimalist open-source package to recursively generate **sha-256**, **sha-384** or **sha-512** subresource integrity hashes to authenticate **.js** and **.css** files.
+Ultralight, non-dependent and minimalist open-source package to create Unicode Normalization Form of string for URL creation and text sanitization.
 
 ```js
-const sri = require("open-sri");
+const normalizer = require("text-normalizer");
 
-sri.get("./public/css", "sha384");
+normalizer.normalize("string");
 ```
-
-[Subresource Integrity](https://developer.mozilla.org/fr/docs/Web/Security/Subresource_Integrity) or SRI is a [W3C recommendation](https://www.w3.org/TR/SRI/) to provide a method to protect website delivery from CDN-served malicious code.
-
-To use SRI, a website author wishing to include a static resource can specify a cryptographic hash of the resource in addition to the location of the resource. Browsers fetching the resource can then compare the hash provided by the website author with the hash computed from the resource. If the hashes don't match, the resource is discarded.
-
-```html
-<script src="https://cdn.example.com/app.js"
-        integrity="sha384-+/M6kredJcxdsqkczBUjMLvqyHb1K/JThDXWsBVxMEeZHEaMKEOEct339VItX1zB"
-></script>
-```
-
-This package aims at automating the process of generating cryptographic hashes in order to facilitate their access, by parsing directories and subdirectories to extract static files.
-
 [![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](https://choosealicense.com/licenses/mit/) 
-[![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/louisbrulenaudet/open-sri/issues)
-![npm version](https://img.shields.io/npm/v/open-sri)
+[![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/louisbrulenaudet/text-normalizer/issues)
+![npm version](https://img.shields.io/npm/v/text-normalizer)
 
 ## Features
 
 - Low memory usage
 - Executable for generating applications quickly
-- High availability for synchronization with CDN systems
 - Simple deployment with one-line integration
 
 ## Tech Stack
@@ -46,40 +32,29 @@ Before installing, [download and install Node.js](https://nodejs.org/en/download
 If this is a brand new project, make sure to create a `package.json` first with the [`npm init` command](https://docs.npmjs.com/creating-a-package-json-file). Then:
 
 ```bash
-  npm i open-sri 
-  yarn install open-sri
+  npm i text-normalizer
+  yarn install text-normalizer
 ```
 
 ## Importing
 
 ```js
 // Using Node.js 'require()'
-const sri = require('open-sri');
+const normalizer = require('text-normalizer');
 ```
-
-## Documentation
-
-The `get` function take two arguments, the `directory` (`string`) containing static files we want to obtain hashes from, and the required `algorithm` for the calculation `sha256`, `sha384` or `sha512` (`string`). 
-
-Return `JSON` object.
 
 ## Usage/Examples
 
 ```javascript
-const sri = require("open-sri");
+const normalizer = require('text-normalizer');
 
-sri.get("./public/css", "sha384");
+normalizer.normalize("égrgr^''gèk3");
 ```
 
 ```javascript
-[
-  {
-    filepath: 'public/css/index.css',
-    hash: 'sha384-yTRuc6ItZNScTYLXkpwURSAsaZLKgfoWi69Nku5bK2/1HW2O8OOgcli2jdgvIJnE'
-  }
-]
+egrgrgek3
 ```
-Then, we can observe the creation of a JSON element, containing each filepath contained in the directory and its subdirectories, as well as the assignment of a unique hash preceded by the mention `"sha256-"`, `"sha384-"` or `"sha512-"` directly exploitable in your routes configuration file.
+Clean URLs (also known as friendly URLs, pretty URLs, search-engine friendly URLs or RESTful URLs) are web addresses or uniform resource locators (URLs) designed to improve the usability and accessibility of a website, web application or web service by being immediately and intuitively understandable to non-expert users.
 
 ## License
 
