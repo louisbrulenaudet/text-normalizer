@@ -1,7 +1,7 @@
 {
-  "name": "open-sri",
+  "name": "text-normalizer",
   "version": "1.0.0",
-  "description": "Ultralight, non-dependent and minimalist open-source package to recursively generate subresource integrity (SRI) hashes.",
+  "description": "Ultralight, non-dependent and minimalist open-source package to normalize text for clean URL",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -12,16 +12,15 @@
   "email": "contact@louisbrulenaudet.com",
   "repository": {
     "type": "git",
-    "url": "https://github.com/louisbrulenaudet/mongoose-subresource-integrity"
+    "url": "https://github.com/louisbrulenaudet/text-normalizer"
   },
   "keywords": [
-    "sri",
-    "subresource-integrity",
-    "security",
-    "content delivery network",
-    "W3C",
+    "url",
+    "normalizer",
+    "sanitation",
+    "clean url",
+    "string",
     "open-source",
-    "open-sri"
   ],
   "bugs": "https://louisbrulenaudet.com/contact",
   "homepage": "https://louisbrulenaudet.com",
