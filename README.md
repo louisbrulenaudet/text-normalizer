@@ -1,4 +1,4 @@
-# text-normalizer for url creation
+# text-normalizer for URL creation
 
 <img align="right" src="https://github.com/yarnpkg/assets/blob/master/yarn-kitten-full.svg?raw=true" height="150px" alt="the yarn kitten">
 
